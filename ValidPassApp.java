@@ -26,8 +26,23 @@ public class ValidPassApp{
 			va.validate();
 			va.getResult();
 			System.out.println(va.getResult());
-		}
 
+		}
+	System.out.println("How many passwords you would like to generate?");
+	int numP=keyboard.nextInt();
+	int[] mod = new int[numP];
+	//fill array mod with user inputs
+	for (int i=0;i<numP;i++){
+	System.out.println("Please enter "+(i+1)+" numbers between 11 and 19 inclusive.");
+		mod[i]=keyboard.nextInt();
+	}
+	//String passwords[]=new String[numP];
+
+	va.createPassword(numP, mod);
+	System.out.println("Generated passwords:");
+	        for (int i = 0; i < numP; i++) {
+	             System.out.println(va.getPasswords()[i]);
+        }
 	}
 
 }

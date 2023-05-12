@@ -8,6 +8,11 @@ public class ValidPass {
 	// instance variables
 	private String userAlias;
 	private String result;
+	private String passwords[];
+
+	//to modify sting
+	StringBuffer sb = new StringBuffer();
+
 
 	//constructor
 	public ValidPass(){
@@ -17,13 +22,14 @@ public class ValidPass {
 	//setter
 	public void setAlias(String userAlias){
 		this.userAlias=userAlias;
+
 	}
-	//compute
+	//validate alias
 	public void validate(){
 				//check length
-			if (userAlias.length()!=24){
-				result="NOT VALID";
-			}
+			if (userAlias.length()>=24){
+
+
 
 			//check first 3 letters AIB
 			for (int i=0;i<3;i++){
@@ -69,12 +75,52 @@ public class ValidPass {
 				}
 
 			}
+		}
+		else {result="NOT VALID";}
 
 	}
-	//getter
+
+	//create arr of passwords
+
+	public void createPassword(int numP, int[] mod){
+
+		String upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+		    // initialize passwords array with length numP
+		    String[] passwords = new String[numP];
+
+		    //loop through array to store strings
+		    for (int i=0;i<numP;i++){
+		        int modulo=mod[i];//assign element from arr mod to mod var to calc modulo
+		        int m=49210955%modulo;//calc remainder
+
+		        // create new StringBuffer for each password
+		        StringBuffer sb = new StringBuffer();
+
+		        sb.append(m);//append remainder
+		        sb.append('@');//append @
+
+		        //generate 6 random letters from upperCaseLetters String using Math.random
+		        for (int j = 0; j < 6; j++) {
+		            int randomIndex = (int) (Math.random() * upperCaseLetters.length());
+		            char randomChar = upperCaseLetters.charAt(randomIndex);
+		            sb.append(randomChar);//append random char to sb
+		        }
+
+		        passwords[i] = sb.toString();//convert sb to string and store in array
+		    }
+
+		    //set instance variable to passwords array
+		    this.passwords = passwords;
+
+	}
+
+	//getters
 	public String getResult(){
 		return result;
 	}
-
+	public String[] getPasswords(){
+		return passwords;
+	}
 
 }
